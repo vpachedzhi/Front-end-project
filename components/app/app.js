@@ -14,7 +14,7 @@ define(['ractive', 'text!components/app/template.html', 'jquery'],
             $.ajax({
                 url: "https://api.discogs.com/artists/270222",
                 success: function (res){
-                    console.log('Service success')
+                    //console.log('Service success')
                     this.set('res', res)
                 }.bind(this),
                 error: function (err) {
