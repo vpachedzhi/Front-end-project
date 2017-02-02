@@ -9,7 +9,7 @@ define(['ractive', 'text!components/Album/album.html', 'jquery'],
 
             oninit: function () {
                 console.log(this.get());
-                components.push(this);
+    //            components.push(this);
 
                 $.ajax({
                     url: this.get("url"),

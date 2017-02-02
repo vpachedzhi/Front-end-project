@@ -24,7 +24,11 @@ requirejs([
 
     function (Ractive, bootstrap, template, album) {
         "use strict";
-        window.components = [];
+
+        window.Ractive = Ractive;
+        Ractive.components = {
+            Album: album
+        }
 
         window.auth = {
             key : "zIjBTnMjbclkbdcdBPuK",
@@ -35,15 +39,12 @@ requirejs([
             el: 'body',
             template: template,
 
-            components: {
-                Album: album
-            },
 
             data: function() {
                 return {
                     albums: [],
                     mainShown: true,
-                    albumURL: "",
+                    albumURL: ""
                 };
             },
             oninit: function () {
@@ -66,5 +67,4 @@ requirejs([
                 })
             }
         });
-        components.push(ractive);
 })
