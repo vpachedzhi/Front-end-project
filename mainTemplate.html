@@ -1,23 +1,18 @@
 
 {{#if mainShown}}
-<table class="table">
-    <thead>
-    <tr>
-        <th>Image</th>
-        <th>Year</th>
-        <th>Album</th>
-    </tr>
-    </thead>
-    <tbody>
-    {{#each albums}}
-    <tr on-click="@this.chooseAlbum(this.resource_url)">
-        <td><img src={{this.thumb}}></td>
-        <td>{{this.year}}</td>
-        <td>{{this.title}}</td>
-    </tr>
-    {{/each}}
-    </tbody>
-</table>
+<div class="row">
+    <div class="col-xs-6 col-md-5 col-md-4 col-lg-2">
+
+    </div>
+    <div class="col-xs-6 col-md-7 col-md-8 col-lg-10">
+        {{#each albums}}
+            <div class="card" on-click="@this.chooseAlbum(this.resource_url)">
+                <span><img src={{this.thumb}}></span>
+                <h4 class="title"><span>{{this.title}}</span></h4>
+            </div>
+        {{/each}}
+    </div>
+</div>
 
 {{elseif albumURL}}
 

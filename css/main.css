@@ -1,6 +1,18 @@
-.myClass {
-    max-width: 100px;
+.card {
+    float: left;
+    margin: 7px 9px 14px 7px;
+    width: 150px;
+    height: 205px;
 }
-.mySecondClass {
-    max-width: 500px;
+.title {
+    overflow: hidden;
+    font-size: 13px;
+    text-align: left;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: darkblue;
+}
+
+.row {
+    margin: 0;
 }

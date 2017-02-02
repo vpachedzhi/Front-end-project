@@ -18,11 +18,12 @@ requirejs.config({
 requirejs([
     'ractive',
     'bootstrap',
-        'text!mainTemplate.html',
+    'jquery',
+    'text!mainTemplate.html',
     'album'
     ],
 
-    function (Ractive, bootstrap, template, album) {
+    function (Ractive, bootstrap, $, template, album) {
         "use strict";
 
         window.Ractive = Ractive;
@@ -35,7 +36,7 @@ requirejs([
             secret : "FtHTmcRQrycLEZhqgNuXgfMHdAkaJnTQ"
         };
 
-        var ractive = new Ractive({
+        new Ractive({
             el: 'body',
             template: template,
 
@@ -49,10 +50,10 @@ requirejs([
             },
             oninit: function () {
                 $.ajax({
-                    url: "https://api.discogs.com/artists/18839/releases",
+                    url: "https://api.discogs.com/database/search",
                     data: auth,
                     success: function (response){
-                        this.set('albums', response.releases)
+                        this.set('albums', response.results)
                     }.bind(this),
                     error: function (err) {
                         console.log(err)
