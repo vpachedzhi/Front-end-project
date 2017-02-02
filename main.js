@@ -7,8 +7,7 @@ requirejs.config({
         'bootstrap': 'lib/bootstrap/bootstrap.min',
         'rvc': 'rvc',
         // Components
-        'app': 'components/app/app',
-        'demo': 'components/demoComponent/demoComponent'
+        'album': "components/Album/album"
     },
     shim: {
         'bootstrap': ['jquery'],
@@ -19,26 +18,53 @@ requirejs.config({
 requirejs([
     'ractive',
     'bootstrap',
-    'app',
-    'demo'
+        'text!mainTemplate.html',
+    'album'
     ],
 
-    function (Ractive, bootstrap, App, demo) {
+    function (Ractive, bootstrap, template, album) {
+        "use strict";
+        window.components = [];
 
-        window.components = []
+        window.auth = {
+            key : "zIjBTnMjbclkbdcdBPuK",
+            secret : "FtHTmcRQrycLEZhqgNuXgfMHdAkaJnTQ"
+        };
 
-        var ractive = new App({
+        var ractive = new Ractive({
             el: 'body',
-            template: '<App/>',
-
-            oninit: function () {
-
-            },
+            template: template,
 
             components: {
-                App: App
-                //demoComponent: demo
+                Album: album
+            },
+
+            data: function() {
+                return {
+                    albums: [],
+                    mainShown: true,
+                    albumURL: "",
+                };
+            },
+            oninit: function () {
+                $.ajax({
+                    url: "https://api.discogs.com/artists/18839/releases",
+                    data: auth,
+                    success: function (response){
+                        this.set('albums', response.releases)
+                    }.bind(this),
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+            },
+
+            chooseAlbum: function(resource_url) {
+                this.set({
+                    albumURL: resource_url,
+                    mainShown: false
+                })
             }
         });
-        components.push(ractive)
+        components.push(ractive);
 })

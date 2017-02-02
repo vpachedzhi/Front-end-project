@@ -1,0 +1,28 @@
+
+{{#if mainShown}}
+<table class="table">
+    <thead>
+    <tr>
+        <th>Image</th>
+        <th>Year</th>
+        <th>Album</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each albums}}
+    <tr on-click="@this.chooseAlbum(this.resource_url)">
+        <td><img src={{this.thumb}}></td>
+        <td>{{this.year}}</td>
+        <td>{{this.title}}</td>
+    </tr>
+    {{/each}}
+    </tbody>
+</table>
+
+{{elseif albumURL}}
+
+<Album url={{albumURL}}></Album>
+
+
+
+{{/if}}
