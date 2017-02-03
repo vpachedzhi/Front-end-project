@@ -29,7 +29,7 @@ requirejs([
         window.Ractive = Ractive;
         Ractive.components = {
             Album: album
-        }
+        };
 
         window.auth = {
             key : "zIjBTnMjbclkbdcdBPuK",
@@ -53,7 +53,7 @@ requirejs([
                     url: "https://api.discogs.com/database/search",
                     data: auth,
                     success: function (response){
-                        this.set('albums', response.results)
+                        this.set('albums', response.results);
                     }.bind(this),
                     error: function (err) {
                         console.log(err)
@@ -63,9 +63,12 @@ requirejs([
 
             chooseAlbum: function(resource_url) {
                 this.set({
-                    albumURL: resource_url,
+                    // temporary mock
+                    url: this.get("url"),
+                    albumURL: "https://api.discogs.com/masters/705258",
+                    //albumURL: resource_url,
                     mainShown: false
                 })
             }
         });
-})
+});

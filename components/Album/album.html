@@ -1,5 +1,53 @@
-<ul>
-    {{#each album.tracklist}}
-    <li>{{this.title}} {{this.duration}}</li>
-    {{/each}}
-</ul>
+<div class="wrapper">
+
+    <div class="album-description">
+
+        <h2>{{#each album.artists}}
+            {{this.name}}{{this.join}} {{ }}{{/each}} - {{album.title}}</h2>
+
+        <table class="table">
+            <tr>
+                <td>Genre</td>
+                <td>{{genre}}</td>
+            </tr>
+            <tr>
+                <td>Style</td>
+                <td>{{style}}</td>
+
+            </tr>
+            <tr>
+                <td>Year</td>
+                <td>{{album.year}}</td>
+            </tr>
+        </table>
+        <div class="album-art">
+            <!-- TODO: dynamic image size-->
+            <img src="{{albumArt}}" class="img-thumbnail" height="300" width="300">
+        </div>
+    </div>
+
+    <div class="tracklist">
+        <h3>Tracklist</h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Track Title</th>
+                <th>Duration</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each album.tracklist:i}}
+            <tr>
+                <td>{{i+1}}</td>
+                <td>{{this.title}}</td>
+                <td>{{this.duration}}</td>
+            </tr>
+            {{/each}}
+            <tr>
+                <td colspan=3>Total: {{totalDuration}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
