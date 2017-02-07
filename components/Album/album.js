@@ -8,16 +8,13 @@ define(['ractive', 'text!components/Album/album.html', 'jquery'],
             template: template,
 
             oninit: function () {
-                //            components.push(this);
+                //components.push(this);
                 $.ajax({
                     url: this.get("url"),
                     data: window.auth,
                     success: function (response) {
-                        this.set("album", response);
+                        this.set("album", this.processResponse(response));
                         console.log(this.get());
-                        this.setAlbumArt();
-                        this.setTotalDuration();
-                        this.setGenreAndStyle();
                     }.bind(this),
                     error: function (err) {
                         console.log(err)
@@ -25,39 +22,32 @@ define(['ractive', 'text!components/Album/album.html', 'jquery'],
                 })
             },
 
-            setGenreAndStyle: function () {
-                this.set("genre", this.get("album.genres").join(", "));
-                this.set("style", this.get("album.styles").join(", "));
-            },
+            getAlbumArt: function (response) {
 
-            setAlbumArt: function () {
+                // TODO: maybe return first image in array
+                // var albumArtURL = response.images.filter(function (image) {
+                //     return image.type === "primary";
+                // })[0];
 
-                var albumArtURL = this.get("album.images").find(function (image) {
-                    return image.type === "primary";
-                });
+                var albumArtURL = response.images[0];
+
                 // TODO: return default no art image
-                this.set("albumArt", albumArtURL ? albumArtURL.resource_url : undefined);
+                return albumArtURL ? albumArtURL.resource_url : undefined;
             },
 
-            setTotalDuration: function () {
+            getTotalDuration: function (response) {
 
-                var tracklist = this.get("album.tracklist");
+                var tracklist = response.tracklist;
 
-                var totalSeconds = 0;
+                var totalSeconds = tracklist.reduce(function (acc, track) {
+                    return acc + this.convertToSeconds(track.duration);
+                }.bind(this), 0);
 
-                for (var i = 0; i < tracklist.length; i++) {
-                    totalSeconds += this.convertToSeconds(tracklist[i].duration);
+
+                if (isNaN(totalSeconds)) {
+                    return "";
                 }
-
-                // tracklist.forEach(function (element) {
-                //     totalSeconds += this.convertToSeconds(element.duration);
-                // });
-
-                if (isNaN(totalSeconds)){
-                    this.set("totalDuration", "");
-                    return;
-                }
-                this.set("totalDuration", this.convertToMinutes(totalSeconds));
+                return this.convertToMinutes(totalSeconds);
             },
 
             convertToSeconds: function (duration) {
@@ -68,10 +58,18 @@ define(['ractive', 'text!components/Album/album.html', 'jquery'],
                 var minutes = Math.floor(totalSeconds / 60);
                 var seconds = totalSeconds - minutes * 60;
                 return minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
+            },
+
+            processResponse: function (response) {
+                response.totalDuration = this.getTotalDuration(response);
+                response.albumArtURL = this.getAlbumArt(response);
+                return response;
+            },
+
+            selectArtist: function (resource_url) {
+                eventEmitter.fire("ARTIST_SELECTED_EVENT", resource_url);
             }
-
         });
-
     });
 /**
  * Created by Filipoff on 2.2.2017 г..

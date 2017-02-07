@@ -4,6 +4,7 @@
     width: 150px;
     height: 205px;
 }
+
 .title {
     overflow: hidden;
     font-size: 13px;
@@ -15,4 +16,112 @@
 
 .row {
     margin: 0;
+}
+
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.img-thumbnail {
+    height: 150px;
+    width: auto;
+    float: right;
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+.album-cover {
+    height: 100px;
+    width: 100px;
+}
+.album-info {
+    height: 75px;
+    width: 70%;
+    font-size: larger;
+}
+
+.duration-col {
+    text-align: right;
+
+}
+
+.total-duration {
+    font-weight: bold;
+    font-style: italic;
+}
+
+.album-wrapper {
+    background-color: #C7C7CC;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.album-info-data {
+    text-align: right;
+}
+
+.tracklist-title {
+    text-align: center;
+    font-weight: bold;
+}
+
+.artist-inactive-member {
+    text-decoration: line-through;
+    /*color: red;*/
+}
+
+.artist-profile {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+a {
+    color: #298cda;
+}
+
+a:hover {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #663366;
+}
+
+.artist-wrapper {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background-color: #C7C7CC;
+}
+
+.releases-title {
+    text-align: center;
+    font-weight: bold;
+}
+
+.releases-table {
+
+}
+
+.table tbody>tr>td.releases-table-row {
+    vertical-align: middle;
+}
+
+.artist-profile-cropped {
+    overflow: hidden;
+    max-height: 150px;
 }

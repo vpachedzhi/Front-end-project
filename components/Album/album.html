@@ -1,53 +1,81 @@
-<div class="wrapper">
+{{#if album}}
 
-    <div class="album-description">
-
-        <h2>{{#each album.artists}}
-            {{this.name}}{{this.join}} {{ }}{{/each}} - {{album.title}}</h2>
-
-        <table class="table">
-            <tr>
-                <td>Genre</td>
-                <td>{{genre}}</td>
-            </tr>
-            <tr>
-                <td>Style</td>
-                <td>{{style}}</td>
-
-            </tr>
-            <tr>
-                <td>Year</td>
-                <td>{{album.year}}</td>
-            </tr>
-        </table>
-        <div class="album-art">
-            <!-- TODO: dynamic image size-->
-            <img src="{{albumArt}}" class="img-thumbnail" height="300" width="300">
+<div class="album-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 page-header">
+                <h2 class="album-title">
+                    {{#each album.artists:i}}
+                    <a on-click="@this.selectArtist(this.resource_url)">{{this.name}}</a>{{i < album.artists.length - 1 ? ", ": ""}}
+                    {{/each}}
+                    - {{album.title}}
+                </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-8 col-xs-8">
+                <table class="table album-info">
+                    <tr>
+                        <td>Genre</td>
+                        <td class="album-info-data">
+                            {{#each album.genres:i}}
+                            <a>{{this}}</a>{{i < album.genres.length - 1 ? ", " : ""}}
+                            {{/each}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Style</td>
+                        <td class="album-info-data">
+                            {{#each album.styles:i}}
+                            <a>{{this}}</a>{{i < album.styles.length - 1 ? ", " : ""}}
+                            {{/each}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Year</td>
+                        <td class="album-info-data"><a>{{album.year}}</a></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-4 col-xs-4 album-art">
+                <!-- TODO: dynamic image size-->
+                <img src="{{album.albumArtURL}}" class="img-thumbnail">
+            </div>
         </div>
     </div>
-
-    <div class="tracklist">
-        <h3>Tracklist</h3>
-        <table class="table">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Track Title</th>
-                <th>Duration</th>
-            </tr>
-            </thead>
-            <tbody>
-            {{#each album.tracklist:i}}
-            <tr>
-                <td>{{i+1}}</td>
-                <td>{{this.title}}</td>
-                <td>{{this.duration}}</td>
-            </tr>
-            {{/each}}
-            <tr>
-                <td colspan=3>Total: {{totalDuration}}</td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="container">
+        <div class="row">
+            <div class="tracklist col-lg-12 col-md-12 col-sm-12">
+                <h3 class="tracklist-title">Tracklist</h3>
+                <table class="table track-table">
+                    <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Title</th>
+                        {{#if album.totalDuration}}
+                        <th class="duration-col">Duration</th>
+                        {{/if}}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each album.tracklist:i}}
+                    <tr>
+                        <td>{{i+1}}</td>
+                        <td>{{this.title}}</td>
+                        <td class="duration-col">{{this.duration}}</td>
+                    </tr>
+                    {{/each}}
+                    {{#if album.totalDuration}}
+                    <tr>
+                        <td class="duration-col total-duration" colspan=3>Total Duration: {{album.totalDuration}}</td>
+                    </tr>
+                    {{/if}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
+{{else}}
+<div class="loader"></div>
+{{/if}}
