@@ -9,10 +9,8 @@ define(['ractive', 'text!components/Artist/artist.html', 'jquery'],
                     url: this.get("url"),
                     data: window.auth,
                     success: function (response) {
-                        console.log(response);
+                        response.description = this.formatDescription(response.profile);
                         this.processResponse(response);
-                        console.log(response);
-
                     }.bind(this),
                     error: function (err) {
                         console.log(err)
@@ -26,6 +24,7 @@ define(['ractive', 'text!components/Artist/artist.html', 'jquery'],
                     url: response.releases_url,
                     data: window.auth,
                     success: function (resp) {
+
                         response.releases = resp.releases.filter(function (release) {
                             return release.type === "master";
                         });
@@ -34,12 +33,34 @@ define(['ractive', 'text!components/Artist/artist.html', 'jquery'],
                             showMoreInfo: false
                         });
 
+                        var context = this;
+                        // TODO is this the right way ?
+                        $(".clickable-table-row").click(function() {
+                            context.selectAlbum($(this).data("href"));
+                        });
+
                         console.log(this.get());
                     }.bind(this),
                     error: function (err) {
                         console.log(err)
                     }
                 });
+            },
+
+            formatDescription: function (description) {
+
+                var re = /\[\w=(.*?)\]/g;
+
+                return description.replace(re, "$1");
+            },
+
+            selectAlbum: function (resource_url) {
+                eventEmitter.fire("ALBUM_SELECTED_EVENT", resource_url);
+            },
+
+            selectArtist: function (resource_url) {
+                console.log(resource_url);
+                eventEmitter.fire("ARTIST_SELECTED_EVENT", resource_url);
             }
         });
     });

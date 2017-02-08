@@ -73,22 +73,26 @@ requirejs([
                 eventEmitter.on("ARTIST_SELECTED_EVENT", function (resource_url) {
 
                     this.set({
-                        artistURL: "https://api.discogs.com/artists/18839",
+                        artistURL: resource_url,
                         mainShown: false,
-                        albumShown: false,
-                        artistShown: true
+                        artistShown: true,
+                        albumShown: false
+                    });
+                }.bind(this));
+
+                eventEmitter.on("ALBUM_SELECTED_EVENT", function (resource_url) {
+
+                    this.set({
+                        albumURL: resource_url,
+                        mainShown: false,
+                        artistShown: false,
+                        albumShown: true
                     });
                 }.bind(this));
             },
 
-            chooseAlbum: function (resource_url) {
-                this.set({
-                    //albumURL: "https://api.discogs.com/masters/705258",
-                    albumURL: resource_url,
-                    mainShown: false,
-                    artistShown: false,
-                    albumShown: true
-                });
+            selectAlbum: function (resource_url) {
+                eventEmitter.fire("ALBUM_SELECTED_EVENT", resource_url);
             }
         });
     });
@@ -98,3 +102,6 @@ requirejs([
 // NO embedded
 // Fix album table to bootstrap
 // add more css3 props
+// artist profile info parse maybe with regex
+// handle VARIOUS artist
+// artist already selected, when selecting

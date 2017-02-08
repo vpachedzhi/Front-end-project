@@ -10,20 +10,22 @@
         </div>
         <div class="row artist-info">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                {{#if this.artist.description}}
                 <div class="row artist-profile">
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                         <span>Information</span>
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
 
-                        <div class="{{showMoreInfo ? '': 'artist-profile-cropped'}}">{{this.artist.profile}}</div>
+                        <div class="{{showMoreInfo ? '': 'artist-profile-cropped'}}">{{this.artist.description}}</div>
 
-                        <button on-click="@this.toggle('showMoreInfo')" class="btn btn-primary">
+                        <button on-click="@this.toggle('showMoreInfo')" class="btn btn-primary show-more-button">
                             {{showMoreInfo ? "Show less" : "Show more"}}
                         </button>
                     </div>
                 </div>
-
+                {{/if}}
 
                 {{#partial band}}
                 <!--TODO read about partial-->
@@ -38,14 +40,14 @@
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                         {{#each this.artist.members:i}}
                         {{#if this.active}}
-                        <a>{{this.name}}</a>{{i < artist.members.length - 1 ? ", ": ""}}
+                        <a on-click="@this.selectArtist(this.resource_url)">{{this.name}}</a>{{i < artist.members.length - 1 ? ", ": ""}}
                         {{else}}
-                        <a class="artist-inactive-member">{{this.name}}</a>{{i < artist.members.length - 1 ? ", ": ""}}
+                        <a on-click="@this.selectArtist(this.resource_url)" class="artist-inactive-member">{{this.name}}</a>{{i < artist.members.length - 1 ? ", ": ""}}
                         {{/if}}
                         {{/each}}
                     </div>
                 </div>
-                {{else}}
+                {{elseif this.artist.groups}}
                 <div class="row artist-groups artist-profile">
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                         <span>Groups</span>
@@ -53,22 +55,26 @@
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                         {{#each this.artist.groups:i}}
                         {{#if this.active}}
-                        <a>{{this.name}}</a>{{i < artist.groups.length - 1 ? ", ": ""}}
+                        <a on-click="@this.selectArtist(this.resource_url)">{{this.name}}</a>{{i < artist.groups.length - 1 ? ", ": ""}}
                         {{else}}
-                        <a class="artist-inactive-group">{{this.name}}</a>{{i < artist.members.length - 1 ? ", ": ""}}
+                        <a on-click="@this.selectArtist(this.resource_url)" class="artist-inactive-group">{{this.name}}</a>{{i < artist.members.length - 1 ? ", ": ""}}
                         {{/if}}
                         {{/each}}
                     </div>
                 </div>
+                {{else}}
+
                 {{/if}}
+                {{#if artist.images}}
                 <div class="row artist-pictures artist-profile">
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                         <span>Pictures</span>
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <span><img src={{artist.images[0].resource_url}}></span>
+                        <span class="artist-picture"><img src={{artist.images[0].resource_url}}></span>
                     </div>
                 </div>
+                {{/if}}
             </div>
         </div>
     </div>
@@ -76,22 +82,25 @@
         <div class="row artist-releases">
             <h3 class="releases-title">Albums</h3>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <table class="table releases-table">
+                <table class="table table-hover releases-table">
                     <thead>
                     <tr>
                         <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 releases-table-row">Year</th>
                         <th class="col-lg-10 col-md-9 col-sm-8 col-xs-8 releases-table-row">Album</th>
-                        <th class="col-lg-1 col-md-2 col-sm-3 col-xs-3 releases-table-row col-centered" style="text-align: center">Cover</th>
+                        <th class="col-lg-1 col-md-2 col-sm-3 col-xs-3 releases-table-row col-centered"
+                            style="text-align: center">Cover
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
-                    {{#each artist.releases}}
-                    <tr>
-                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 releases-table-row">{{this.year}}</td>
-                        <td class="col-lg-10 col-md-9 col-sm-8 col-xs-8 releases-table-row">{{this.title}}</td>
-                        <td class="col-lg-1 col-md-2 col-sm-3 col-xs-3 releases-table-row col-centered"><img src="{{this.thumb}}" class="img-thumbnail album-cover"></td>
-                    </tr>
-                    {{/each}}
+                        {{#each artist.releases}}
+                        <tr class="clickable-table-row" data-href="{{this.resource_url}}">
+                            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 releases-table-row">{{this.year}}</td>
+                            <td class="col-lg-10 col-md-9 col-sm-8 col-xs-8 releases-table-row">{{this.title}}</td>
+                            <td class="col-lg-1 col-md-2 col-sm-3 col-xs-3 releases-table-row col-centered"><img
+                                    src="{{this.thumb}}" class="img-thumbnail album-cover"></td>
+                        </tr>
+                        {{/each}}
                     </tbody>
                 </table>
             </div>

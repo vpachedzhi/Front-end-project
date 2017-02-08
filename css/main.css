@@ -25,6 +25,10 @@
     width: 120px;
     height: 120px;
     animation: spin 2s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 @keyframes spin {
@@ -38,11 +42,12 @@
 
 .img-thumbnail {
     height: 150px;
-    width: auto;
+    width: 150px;
     float: right;
+    min-width: 150px;
 }
 
-.col-centered{
+.col-centered {
     float: none;
     margin: 0 auto;
 }
@@ -50,10 +55,10 @@
 .album-cover {
     height: 100px;
     width: 100px;
+    min-width: 100px;
 }
+
 .album-info {
-    height: 75px;
-    width: 70%;
     font-size: larger;
 }
 
@@ -71,6 +76,7 @@
     background-color: #C7C7CC;
     font-family: "Segoe UI", Arial, sans-serif;
 }
+
 
 .album-info-data {
     text-align: right;
@@ -90,6 +96,7 @@
     margin-top: 50px;
     margin-bottom: 50px;
 }
+
 a {
     color: #298cda;
 }
@@ -117,11 +124,49 @@ a:visited {
 
 }
 
-.table tbody>tr>td.releases-table-row {
+.table tbody > tr > td.releases-table-row {
     vertical-align: middle;
 }
 
 .artist-profile-cropped {
     overflow: hidden;
     max-height: 150px;
+}
+
+.album-profile {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.clickable-table-row:hover {
+    cursor: pointer;
+    /*text-decoration: none;*/
+}
+
+@media (min-width: 768px) {
+    .img-thumbnail {
+        float: right;
+    }
+}
+
+@media (max-width: 767px) {
+    .img-thumbnail {
+        float: left;
+    }
+}
+
+.artist-info, .releases-table, .track-table {
+    font-size: larger;
+}
+
+.artist-picture {
+    float:right;
+}
+
+.show-more-button {
+    width: 100%;
+}
+
+body {
+    background-color: #C7C7CC;
 }
