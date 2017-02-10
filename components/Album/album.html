@@ -15,6 +15,8 @@
         </div>
         <div class="row album-info">
             <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+
+                {{#if album.genres}}
                 <div class="row album-profile">
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                         <span>Genre</span>
@@ -25,7 +27,9 @@
                         {{/each}}
                     </div>
                 </div>
+                {{/if}}
 
+                {{#if album.styles}}
                 <div class="row album-profile">
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                         <span>Style</span>
@@ -36,7 +40,9 @@
                         {{/each}}
                     </div>
                 </div>
+                {{/if}}
 
+                {{#if album.year}}
                 <div class="row album-profile">
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                         <span>Year</span>
@@ -45,6 +51,7 @@
                         <a>{{album.year}}</a>
                     </div>
                 </div>
+                {{/if}}
             </div>
             <div class="col-lg-6 col-md-6 col-sm-4 col-xs-12">
                 <!-- TODO: dynamic image size-->
@@ -59,19 +66,19 @@
                 <table class="table track-table">
                     <thead>
                     <tr>
-                        <th>No.</th>
-                        <th>Title</th>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">No.</th>
+                        <th class="col-lg-8 col-md-8 col-sm-8 col-xs-7">Title</th>
                         {{#if album.totalDuration}}
-                        <th class="duration-col">Duration</th>
+                        <th class="col-lg-3 col-md-3 col-sm-3 col-xs-4 duration-col">Duration</th>
                         {{/if}}
                     </tr>
                     </thead>
                     <tbody>
                     {{#each album.tracklist:i}}
                     <tr>
-                        <td>{{i+1}}</td>
-                        <td>{{this.title}}</td>
-                        <td class="duration-col">{{this.duration}}</td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{i+1}}</td>
+                        <td class="col-lg-8 col-md-8 col-sm-8 col-xs-7">{{this.title}}</td>
+                        <td class="col-lg-3 col-md-3 col-sm-3 col-xs-4 duration-col">{{this.duration}}</td>
                     </tr>
                     {{/each}}
                     {{#if album.totalDuration}}

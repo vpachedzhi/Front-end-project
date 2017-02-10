@@ -40,9 +40,11 @@
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                         {{#each this.artist.members:i}}
                         {{#if this.active}}
-                        <a on-click="@this.selectArtist(this.resource_url)">{{this.name}}</a>{{i < artist.members.length - 1 ? ", ": ""}}
+                        <a on-click="@this.selectArtist(this.resource_url)">{{this.name}}</a>{{i < artist.members.length
+                        - 1 ? ", ": ""}}
                         {{else}}
-                        <a on-click="@this.selectArtist(this.resource_url)" class="artist-inactive-member">{{this.name}}</a>{{i < artist.members.length - 1 ? ", ": ""}}
+                        <a on-click="@this.selectArtist(this.resource_url)"
+                           class="artist-inactive-member">{{this.name}}</a>{{i < artist.members.length - 1 ? ", ": ""}}
                         {{/if}}
                         {{/each}}
                     </div>
@@ -55,9 +57,11 @@
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                         {{#each this.artist.groups:i}}
                         {{#if this.active}}
-                        <a on-click="@this.selectArtist(this.resource_url)">{{this.name}}</a>{{i < artist.groups.length - 1 ? ", ": ""}}
+                        <a on-click="@this.selectArtist(this.resource_url)">{{this.name}}</a>{{i < artist.groups.length
+                        - 1 ? ", ": ""}}
                         {{else}}
-                        <a on-click="@this.selectArtist(this.resource_url)" class="artist-inactive-group">{{this.name}}</a>{{i < artist.members.length - 1 ? ", ": ""}}
+                        <a on-click="@this.selectArtist(this.resource_url)"
+                           class="artist-inactive-group">{{this.name}}</a>{{i < artist.members.length - 1 ? ", ": ""}}
                         {{/if}}
                         {{/each}}
                     </div>
@@ -80,7 +84,34 @@
     </div>
     <div class="container">
         <div class="row artist-releases">
-            <h3 class="releases-title">Albums</h3>
+            <h3 class="releases-title">Discography</h3>
+            <div class="row releases-topbar">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 dropdown releases-sort">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Sort by
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a on-click="@this.sortAlbums('ascYear')">Year Ascending(0-9)</a></li>
+                        <li><a on-click="@this.sortAlbums('descYear')">Year Descending(9-0)</a></li>
+                        <li><a on-click="@this.sortAlbums('ascTitle')">Title Ascending(A-Z)</a></li>
+                        <li><a on-click="@this.sortAlbums('descTitle')">Title Descending(Z-A)</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-8 col-xs-8">
+                    {{this.currentPage * 10 - (10 - 1)}} - {{this.currentPage * 10 > this.artist.releases.length ?
+                    this.artist.releases.length: this.currentPage * 10}} of {{this.artist.releases.length}}
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-2 col-xs-2 releases-pagination">
+                    <ul class="pagination releases-pagination">
+                        <li class="page-item"><a on-click="@this.displayAlbumPage(this.currentPage - 1)"
+                                                 class="page-link">Previous</a></li>
+                        <li class="page-item"><a on-click="@this.displayAlbumPage(this.currentPage + 1)"
+                                                 class="page-link">Next</a></li>
+                    </ul>
+                </div>
+            </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <table class="table table-hover releases-table">
                     <thead>
@@ -93,14 +124,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                        {{#each artist.releases}}
-                        <tr class="clickable-table-row" data-href="{{this.resource_url}}">
-                            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 releases-table-row">{{this.year}}</td>
-                            <td class="col-lg-10 col-md-9 col-sm-8 col-xs-8 releases-table-row">{{this.title}}</td>
-                            <td class="col-lg-1 col-md-2 col-sm-3 col-xs-3 releases-table-row col-centered"><img
-                                    src="{{this.thumb}}" class="img-thumbnail album-cover"></td>
-                        </tr>
-                        {{/each}}
+                    {{#each currentAlbumsDisplayed}}
+                    <tr class="clickable-table-row" on-click="@this.selectAlbum(this.resource_url)">
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 releases-table-row">{{this.year}}</td>
+                        <td class="col-lg-10 col-md-9 col-sm-8 col-xs-8 releases-table-row">{{this.title}}</td>
+                        <td class="col-lg-1 col-md-2 col-sm-3 col-xs-3 releases-table-row col-centered"><img
+                                src="{{this.thumb}}" class="img-thumbnail album-cover"></td>
+                    </tr>
+                    {{/each}}
                     </tbody>
                 </table>
             </div>

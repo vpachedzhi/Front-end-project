@@ -5,40 +5,34 @@ define(['ractive', 'text!components/Artist/artist.html', 'jquery'],
             template: template,
 
             oninit: function () {
-                $.ajax({
-                    url: this.get("url"),
-                    data: window.auth,
-                    success: function (response) {
-                        response.description = this.formatDescription(response.profile);
-                        this.processResponse(response);
-                    }.bind(this),
-                    error: function (err) {
-                        console.log(err)
-                    }
-                })
+                this.selectArtist(this.get("url"));
             },
+
 
             processResponse: function (response) {
 
                 $.ajax({
                     url: response.releases_url,
-                    data: window.auth,
+                    data: auth,
                     success: function (resp) {
 
                         response.releases = resp.releases.filter(function (release) {
                             return release.type === "master";
                         });
+
+
+                        // TODO : make 10 a global variable for albumsPerPage so it can be changed any time
+
+                        var numberOfPages = response.releases.length % 10 == 0 ?
+                            Math.floor(response.releases.length / 10) : Math.ceil(response.releases.length / 10);
+
                         this.set({
                             artist: response,
-                            showMoreInfo: false
+                            showMoreInfo: false,
+                            numberOfPages: numberOfPages,
+                            currentPage: 1
                         });
-
-                        var context = this;
-                        // TODO is this the right way ?
-                        $(".clickable-table-row").click(function() {
-                            context.selectAlbum($(this).data("href"));
-                        });
-
+                        this.displayAlbumPage(1);
                         console.log(this.get());
                     }.bind(this),
                     error: function (err) {
@@ -59,8 +53,74 @@ define(['ractive', 'text!components/Artist/artist.html', 'jquery'],
             },
 
             selectArtist: function (resource_url) {
-                console.log(resource_url);
-                eventEmitter.fire("ARTIST_SELECTED_EVENT", resource_url);
+
+                $.ajax({
+                    url: resource_url,
+                    data: window.auth,
+                    success: function (response) {
+                        response.description = this.formatDescription(response.profile);
+                        this.processResponse(response);
+                    }.bind(this),
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+            },
+
+            sortAlbums: function (order) {
+
+                var compareFunctions = {
+
+                    ascYear: function (first, second) {
+                        if (first.year < second.year)
+                            return -1;
+                        if (first.year > second.year)
+                            return 1;
+                        return 0;
+                    },
+                    descYear: function (first, second) {
+                        if (first.year > second.year)
+                            return -1;
+                        if (first.year < second.year)
+                            return 1;
+                        return 0;
+                    },
+                    ascTitle: function (first, second) {
+                        if (first.title < second.title)
+                            return -1;
+                        if (first.title > second.title)
+                            return 1;
+                        return 0;
+                    },
+                    descTitle: function (first, second) {
+                        if (first.title > second.title)
+                            return -1;
+                        if (first.title < second.title)
+                            return 1;
+                        return 0;
+                    }
+                };
+
+                this.set("artist.releases", this.get("artist.releases").sort(compareFunctions[order]));
+
+                this.displayAlbumPage(1);
+            },
+
+            displayAlbumPage: function (pageNumber) {
+
+                // TODO : 10 must be global constant
+
+                if (pageNumber > this.get("numberOfPages") || pageNumber < 1)
+                    return;
+
+                var releases = this.get("artist.releases").slice((pageNumber * 10) - 10, pageNumber * 10);
+
+                this.set({
+                    currentAlbumsDisplayed: releases,
+                    currentPage: pageNumber
+                });
+
+                console.log(this.get());
             }
         });
     });
