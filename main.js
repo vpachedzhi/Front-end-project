@@ -8,7 +8,8 @@ requirejs.config({
         'rvc': 'rvc',
         // Components
         'album': "components/Album/album",
-        'artist': "components/Artist/artist"
+        'artist': "components/Artist/artist",
+        'search': "components/Search/search"
     },
     shim: {
         'bootstrap': ['jquery'],
@@ -22,16 +23,18 @@ requirejs([
         'jquery',
         'text!mainTemplate.html',
         'album',
-        'artist'
+        'artist',
+        'search'
     ],
 
-    function (Ractive, bootstrap, $, template, album, artist) {
+    function (Ractive, bootstrap, $, template, album, artist, search) {
         "use strict";
 
         window.Ractive = Ractive;
         Ractive.components = {
             Album: album,
-            Artist: artist
+            Artist: artist,
+            Search: search
         };
 
         window.auth = {
@@ -52,8 +55,10 @@ requirejs([
                     mainShown: true,
                     albumShown: false,
                     artistShown: false,
+                    searchShown: false,
                     artistURL: "",
-                    albumURL: ""
+                    albumURL: "",
+                    searchURL: ""
                 };
             },
             oninit: function () {
@@ -64,6 +69,7 @@ requirejs([
                     }),
                     success: function (response) {
                         this.set('albums', response.results);
+                        console.log(this.get());
                     }.bind(this),
                     error: function (err) {
                         console.log(err)
@@ -75,8 +81,10 @@ requirejs([
                     this.set({
                         artistURL: resource_url,
                         mainShown: false,
+                        albumShown: false,
                         artistShown: true,
-                        albumShown: false
+                        searchShown: false
+
                     });
                 }.bind(this));
 
@@ -86,9 +94,25 @@ requirejs([
                         albumURL: resource_url,
                         mainShown: false,
                         artistShown: false,
+                        searchShown: false,
                         albumShown: true
                     });
                 }.bind(this));
+
+                eventEmitter.on("SEARCH_QUERY_EVENT", function (params) {
+
+                    params.type = "master";
+
+                    this.set({
+                        searchURL: "https://api.discogs.com/database/search",
+                        mainShown: false,
+                        albumShown: false,
+                        artistShown: false,
+                        searchShown: true,
+                        searchParameters: params
+                    });
+                }.bind(this));
+
             },
 
             selectAlbum: function (resource_url) {
@@ -105,3 +129,4 @@ requirejs([
 // artist profile info parse maybe with regex
 // handle VARIOUS artist
 // artist already selected, when selecting
+

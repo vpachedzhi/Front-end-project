@@ -103,7 +103,7 @@ define(['ractive', 'text!components/Artist/artist.html', 'jquery'],
 
                 this.set("artist.releases", this.get("artist.releases").sort(compareFunctions[order]));
 
-                this.displayAlbumPage(1);
+                this.displayAlbumPage(1);   
             },
 
             displayAlbumPage: function (pageNumber) {

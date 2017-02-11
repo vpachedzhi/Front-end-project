@@ -68,6 +68,10 @@ define(['ractive', 'text!components/Album/album.html', 'jquery'],
 
             selectArtist: function (resource_url) {
                 eventEmitter.fire("ARTIST_SELECTED_EVENT", resource_url);
+            },
+
+            selectYear: function (year) {
+                eventEmitter.fire("SEARCH_QUERY_EVENT", {year: year});
             }
         });
     });
