@@ -1,8 +1,42 @@
 
 {{#if mainShown}}
 <div class="row">
-    <div class="col-xs-6 col-md-5 col-md-4 col-lg-2">
+    <div class="selections col-xs-6 col-md-5 col-md-4 col-lg-2">
+        {{#if filtersApplied}}
+            <div class="row">
+                <h4>Selected filters</h4>
+                <div class="filters">
+                    {{#each filtersApplied}}
+                    <div>{{this}}</div>
+                    {{/each}}
+                </div>
+            </div>
+        {{/if}}
 
+        <div class="row">
+            <h4>Genre</h4>
+            <div class="genres">
+            {{#each genres}}
+                <div on-click="@this.selectGenre(this)"><a>{{this}}</a></div>
+            {{/each}}
+            </div>
+        </div>
+        <div class="row">
+            <h4>Style</h4>
+            <div class="styles">
+            {{#each styles}}
+                <div on-click="@this.selectStyle(this)"><a>{{this}}</a></div>
+            {{/each}}
+            </div>
+        </div>
+        <div class="row">
+            <h4>Country</h4>
+            <div class="countries">
+            {{#each countries}}
+                <div on-click="@this.selectCountry(this)"><a>{{this}}</a></div>
+            {{/each}}
+            </div>
+        </div>
     </div>
     <div class="col-xs-6 col-md-7 col-md-8 col-lg-10">
         {{#each albums}}

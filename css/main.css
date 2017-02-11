@@ -188,3 +188,38 @@ body {
 .releases-pagination {
     float: right;
 }
+
+.selections {
+    height: 100%;
+
+}
+
+.filters {
+    height: 25%;
+    overflow-y: scroll;
+    padding-bottom: 10px;
+}
+
+.genres {
+    height: 25%;
+    overflow-y: scroll;
+    position: relative;
+}
+
+.styles {
+    height: 25%;
+    overflow-y: scroll;
+    position: relative;
+}
+
+.countries {
+    height: 25%;
+    overflow-y: scroll;
+    position: relative;
+}
+
+.decades {
+    height: 25%;
+    overflow-y: scroll;
+    position: relative;
+}
