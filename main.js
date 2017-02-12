@@ -9,7 +9,7 @@ requirejs.config({
         // Components
         'album': "components/Album/album",
         'artist': "components/Artist/artist",
-        'search': "components/Search/search"
+        'search': "components/SearchResults/search-results"
     },
     shim: {
         'bootstrap': ['jquery'],
@@ -34,7 +34,7 @@ requirejs([
         Ractive.components = {
             Album: album,
             Artist: artist,
-            Search: search
+            SearchResults: search
         };
 
         window.auth = {
@@ -55,10 +55,10 @@ requirejs([
                     mainShown: true,
                     albumShown: false,
                     artistShown: false,
-                    searchShown: false,
                     artistURL: "",
                     albumURL: "",
-                    searchURL: "",
+                    searchURL: "https://api.discogs.com/database/search",
+                    searchParameters: {},
                     filtersApplied: [],
                     selectedGenre: '',
                     genres: ['Rock', 'Hip Hop', 'Reggae', 'Funk / Soul', 'Electronic', 'Classical', 'Latin', 'Stage & Screen', 'Blues', 'Non-Music', "Children's", 'Brass & Military'],
@@ -68,21 +68,22 @@ requirejs([
                     countries: ['US','UK','Germany','France','Japan','Canada','Russia','Italy','Australia','Europe','Spain','Netherlands','Sweden','Poland','Belgium','Greece','Finland','Austria','UK & Europe','Norway','Switzerland','Ukraine','Brazil','Czech Republic','New Zealand','Portugal','Croatia','Serbia','Iceland','Argentina','Hungary','Denmark','USA & Canada','Mexico','China','Yugoslavia','Slovenia','Philippines','Israel','Australasia','UK, Europe & US','Scandinavia','Taiwan','Estonia','Germany, Austria, & Switzerland','Lithuania','Ireland','UK & Ireland','Chile','Peru','South Africa','UK & US','South Korea','Benelux','German Democratic Republic (GDR)','Indonesia','Slovakia','Turkey','USA, Canada & UK','Malaysia','Venezuela','Bulgaria','Colombia','Belarus','Romania','Singapore','Thailand','USA & Europe','Luxembourg','Bosnia & Herzegovina','Hong Kong','India','Latvia','Macedonia','USA, Canada & Europe','Asia','Australia & New Zealand','Ecuador','France & Benelux','Germany & Switzerland','UK, Europe & Japan','Bolivia','Czech Republic & Slovakia','Czechoslovakia','Guatemala','Puerto Rico','Saudi Arabia','Serbia and Montenegro','Singapore, Malaysia & Hong Kong','South East Asia','UK & France','United Arab Emirates','Uruguay']
                 };
             },
+
             oninit: function () {
-                $.ajax({
-                    url: "https://api.discogs.com/database/search",
-                    data: Object.assign({}, auth, {
-                        type: "master"
-                    }),
-                    success: function (response) {
-                        console.log(response);
-                        this.set('albums', response.results);
-                        console.log(this.get());
-                    }.bind(this),
-                    error: function (err) {
-                        console.log(err)
-                    }
-                });
+                // $.ajax({
+                //     url: "https://api.discogs.com/database/search",
+                //     data: Object.assign({}, auth, {
+                //         type: "master"
+                //     }),
+                //     success: function (response) {
+                //         console.log(response);
+                //         this.set('albums', response.results);
+                //         console.log(this.get());
+                //     }.bind(this),
+                //     error: function (err) {
+                //         console.log(err)
+                //     }
+                // });
 
                 eventEmitter.on("ARTIST_SELECTED_EVENT", function (resource_url) {
 
@@ -90,9 +91,7 @@ requirejs([
                         artistURL: resource_url,
                         mainShown: false,
                         albumShown: false,
-                        artistShown: true,
-                        searchShown: false
-
+                        artistShown: true
                     });
                 }.bind(this));
 
@@ -102,29 +101,23 @@ requirejs([
                         albumURL: resource_url,
                         mainShown: false,
                         artistShown: false,
-                        searchShown: false,
                         albumShown: true
                     });
                 }.bind(this));
 
                 eventEmitter.on("SEARCH_QUERY_EVENT", function (params) {
 
-                    params.type = "master";
+                    //params.type = "master";
 
                     this.set({
                         searchURL: "https://api.discogs.com/database/search",
-                        mainShown: false,
+                        mainShown: true,
                         albumShown: false,
                         artistShown: false,
-                        searchShown: true,
                         searchParameters: params
                     });
                 }.bind(this));
 
-            },
-
-            selectAlbum: function (resource_url) {
-                eventEmitter.fire("ALBUM_SELECTED_EVENT", resource_url);
             },
 
             selectGenre: function (genre) {
@@ -166,19 +159,20 @@ requirejs([
                     }
                 }
 
-                console.log(params);
+                console.log(this.get('searchParameters'), params);
+                eventEmitter.fire('SEARCH_QUERY_EVENT', params);
 
-                $.ajax({
-                    url: "https://api.discogs.com/database/search",
-                    data: Object.assign({}, auth, params),
-                    success: function (response) {
-                        this.set('albums', response.results);
-                        console.log(this.get());
-                    }.bind(this),
-                    error: function (err) {
-                        console.log(err)
-                    }
-                });
+                // $.ajax({
+                //     url: "https://api.discogs.com/database/search",
+                //     data: Object.assign({}, auth, params),
+                //     success: function (response) {
+                //         this.set('albums', response.results);
+                //         console.log(this.get());
+                //     }.bind(this),
+                //     error: function (err) {
+                //         console.log(err)
+                //     }
+                // });
             },
 
             correctParam: function(param) {
@@ -190,6 +184,16 @@ requirejs([
                 param = param.replace('(', '%28');
                 param = param.replace(')', '%29');
                 return param;
+            },
+
+            show: function (tab) { // main, album, artist
+                var tabs = Object.keys(this.get()).filter(function (key) {
+                    return key.search('Shown') !== -1;
+                });
+                this.set(tabs.reduce(function (acc, t) {
+                    acc[t] = t.search(tab) !== -1;
+                    return acc;
+                }, {}))
             }
         });
     });
