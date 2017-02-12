@@ -23,7 +23,7 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         {{#each album.genres:i}}
-                        <a>{{this}}</a>{{i < album.genres.length - 1 ? ", " : ""}}
+                        <a on-click="@this.selectGenre(this)">{{this}}</a>{{i < album.genres.length - 1 ? ", " : ""}}
                         {{/each}}
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         {{#each album.styles:i}}
-                        <a>{{this}}</a>{{i < album.styles.length - 1 ? ", " : ""}}
+                        <a on-click="@this.selectStyle(this)">{{this}}</a>{{i < album.styles.length - 1 ? ", " : ""}}
                         {{/each}}
                     </div>
                 </div>

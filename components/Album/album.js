@@ -72,6 +72,14 @@ define(['ractive', 'text!components/Album/album.html', 'jquery'],
 
             selectYear: function (year) {
                 eventEmitter.fire("SEARCH_QUERY_EVENT", {year: year});
+            },
+
+            selectGenre: function (genre) {
+                eventEmitter.fire("SEARCH_QUERY_EVENT", {genre: genre});
+            },
+
+            selectStyle: function (style) {
+                eventEmitter.fire("SEARCH_QUERY_EVENT", {style: style});
             }
         });
     });

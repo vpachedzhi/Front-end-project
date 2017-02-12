@@ -41,7 +41,7 @@
     <div class="col-xs-6 col-md-7 col-md-8 col-lg-10">
         {{#each albums}}
             <div class="card" on-click="@this.selectAlbum(this.resource_url)">
-                <span><img src={{this.thumb}}></span>
+                <span><img src={{this.thumb ? this.thumb : 'resources/default-release.png' }}></span>
                 <h4 class="title"><span>{{this.title}}</span></h4>
             </div>
         {{/each}}

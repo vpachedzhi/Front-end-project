@@ -223,3 +223,8 @@ body {
     overflow-y: scroll;
     position: relative;
 }
+
+.card > span > img {
+    height: 150px;
+    width: 150px;
+}

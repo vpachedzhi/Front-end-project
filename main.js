@@ -75,6 +75,7 @@ requirejs([
                         type: "master"
                     }),
                     success: function (response) {
+                        console.log(response);
                         this.set('albums', response.results);
                         console.log(this.get());
                     }.bind(this),
@@ -201,3 +202,4 @@ requirejs([
 // artist profile info parse maybe with regex
 // handle VARIOUS artist
 // artist already selected, when selecting
+// must also process normal releases
