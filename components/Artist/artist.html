@@ -105,10 +105,10 @@
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-2 col-xs-2 releases-pagination">
                     <ul class="pagination releases-pagination">
-                        <li class="page-item">
+                        <li class="page-item {{this.currentPage == 1 ? 'disabled' : ''}}">
                             <a on-click="@this.displayAlbumPage(this.currentPage - 1)"
-                               class="page-link">Previous</a></li>
-                        <li class="page-item">
+                              >Previous</a></li>
+                        <li class="page-item {{this.currentPage == numberOfPages ? 'disabled' : ''}}">
                             <a on-click="@this.displayAlbumPage(this.currentPage + 1)"
                                class="page-link">Next</a></li>
                     </ul>
