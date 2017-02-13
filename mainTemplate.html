@@ -20,7 +20,7 @@
                 <div class="heading">Selected filters</div>
                 <div class="filterOptionsContainer">
                     {{#params: k}}
-                    <div>{{params[k]}}</div>
+                    <div on-click="@this.remove(k)">{{params[k]}}</div>
                     {{/params}}
                 </div>
             </div>
@@ -28,7 +28,7 @@
             <div class="filterOptions">
                 <div class="heading">Genre</div>
                 <div>
-                    {{#each genres}}
+                    {{#each genres.sort()}}
                     <div on-click="@this.selectGenre(this)"><a>{{this}}</a></div>
                     {{/each}}
                 </div>
@@ -36,7 +36,7 @@
             <div class="filterOptions">
                 <div class="heading">Style</div>
                 <div>
-                    {{#each styles}}
+                    {{#each styles.sort()}}
                     <div on-click="@this.selectStyle(this)"><a>{{this}}</a></div>
                     {{/each}}
                 </div>
@@ -44,7 +44,7 @@
             <div class="filterOptions">
                 <div class="heading">Country</div>
                 <div>
-                    {{#each countries}}
+                    {{#each countries.sort()}}
                     <div on-click="@this.selectCountry(this)"><a>{{this}}</a></div>
                     {{/each}}
                 </div>
@@ -55,7 +55,6 @@
             </div>
         </div>
         <div class="col-xs-6 col-sm-8 col-md-10 col-lg-10 resultsContainer fullHeight">
-            <!--<SearchResults url="{{searchURL}}" params="{{searchParameters}}"></SearchResults>-->
             {{#results}}
             <div class="card" on-click="@this.selectAlbum(this.resource_url)">
                 <span><img src={{this.thumb ? this.thumb : "resources/default-release.png"}}></span>
