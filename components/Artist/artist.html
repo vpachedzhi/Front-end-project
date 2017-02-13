@@ -100,8 +100,8 @@
                     </ul>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-8 col-xs-8">
-                    {{this.currentPage * 10 - (10 - 1)}} - {{this.currentPage * 10 > this.artist.releases.length ?
-                    this.artist.releases.length: this.currentPage * 10}} of {{this.artist.releases.length}}
+                    {{this.currentPage * this.albumsPerPage - (this.albumsPerPage - 1)}} - {{this.currentPage * this.albumsPerPage > this.artist.releases.length ?
+                    this.artist.releases.length: this.currentPage * this.albumsPerPage}} of {{this.artist.releases.length}}
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-2 col-xs-2 releases-pagination">
                     <ul class="pagination releases-pagination">
