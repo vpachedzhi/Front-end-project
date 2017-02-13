@@ -24,7 +24,6 @@ define(['ractive', 'text!components/Artist/artist.html', 'jquery'],
                         // });
 
                         response.releases = resp.releases;
-                        console.log(response);
 
                         var albumsPerPage = this.get("albumsPerPage");
                         var numberOfPages = response.releases.length % albumsPerPage == 0 ?

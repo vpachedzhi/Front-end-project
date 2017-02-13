@@ -67,14 +67,14 @@
     font-size: larger;
 }
 
-.duration-col {
+.duration-row {
     text-align: right;
-
 }
 
-.total-duration {
+#total-duration {
     font-weight: bold;
     font-style: italic;
+    text-align: right;
 }
 
 /*.album-wrapper {*/

@@ -131,7 +131,7 @@
                         <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 releases-table-row">{{this.year}}</td>
                         <td class="col-lg-10 col-md-9 col-sm-8 col-xs-8 releases-table-row">{{this.title}}</td>
                         <td class="col-lg-1 col-md-2 col-sm-3 col-xs-3 releases-table-row col-centered"><img
-                                src="{{this.thumb}}" class="img-thumbnail album-cover"></td>
+                                src="{{this.thumb ? this.thumb : 'resources/default-release.png'}}" class="img-thumbnail album-cover"></td>
                     </tr>
                     {{/each}}
                     </tbody>

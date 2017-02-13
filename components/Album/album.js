@@ -55,6 +55,10 @@ define(['ractive', 'text!components/Album/album.html', 'jquery'],
             processResponse: function (response) {
                 response.totalDuration = this.getTotalDuration(response);
                 response.albumArtURL = this.getAlbumArt(response);
+
+                if (response.artists[0].name === "Various")
+                    response.isVarious = true;
+
                 return response;
             },
 
