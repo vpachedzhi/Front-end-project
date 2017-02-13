@@ -197,6 +197,10 @@ body {
     float: right;
 }
 
+.albumsPagination {
+    margin-left: 13px;
+}
+
 .selections {
     height: 100%;
 
