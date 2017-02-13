@@ -55,7 +55,17 @@
             </div>
         </div>
         <div class="col-xs-6 col-sm-8 col-md-10 col-lg-10 resultsContainer fullHeight">
-            <SearchResults url="{{searchURL}}" params="{{searchParameters}}"></SearchResults>
+            <!--<SearchResults url="{{searchURL}}" params="{{searchParameters}}"></SearchResults>-->
+            {{#results}}
+            <div class="card" on-click="@this.selectAlbum(this.resource_url)">
+                <span><img src={{this.thumb ? this.thumb : "resources/default-release.png"}}></span>
+
+                <h4 class="title"><span>{{this.title}}</span></h4>
+            </div>
+            {{/results}}
+            {{^results}}
+            <div class="loader"></div>
+            {{/results}}
         </div>
     </div>
     {{elseif albumShown}}
