@@ -57,15 +57,7 @@
             </div>
         </div>
         <div class="col-xs-6 col-sm-8 col-md-10 col-lg-10 resultsContainer fullHeight">
-            <nav class="row">
-                <div class="albumsPagination">
-                    <ul class="pagination">
-                        <li class="page-item" on-click="@this.navPage(false)"><a class="page-link">Previous</a></li>
-                        <li class="page-item"><a class="page-link" href="#">{{pagination.page}}</a></li>
-                        <li class="page-item" on-click="@this.navPage(true)"><a class="page-link">Next</a></li>
-                    </ul>
-                </div>
-            </nav>
+            {{>paginationNav}}
             {{#results}}
             <div class="card" on-click="@this.selectAlbum(this.resource_url)">
                 <span><img src={{this.thumb ? this.thumb : "resources/default-release.png"}}></span>
@@ -80,6 +72,7 @@
                     <h2>Too many requests. Please wait...</h2>
                 {{/if}}
             {{/results}}
+            {{>paginationNav}}
         </div>
     </div>
     {{elseif albumShown}}
@@ -88,3 +81,23 @@
     <Artist url="{{artistURL}}"></Artist>
     {{/if}}
 </div>
+
+
+{{#partial paginationNav}}
+<nav class="row">
+    <div class="albumsPagination">
+        <ul class="pagination">
+            <li class="page-item {{pagination.page === 1 ? 'disabled' : ''}}" on-click="@this.navPage(false)">
+                <a class="page-link">Previous</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link">{{pagination.page}}</a>
+            </li>
+            <li class="page-item {{pagination.pages === pagination.page ? 'disabled' : ''}}"
+                on-click="@this.navPage(true)">
+                <a class="page-link">Next</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+{{/partial}}

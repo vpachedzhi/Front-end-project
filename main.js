@@ -110,8 +110,9 @@ requirejs([
                     data: Object.assign({}, auth, params),
                     success: function (response) {
                         this.set({results: response.results, pagination: response.pagination});
+                        console.log(this.get())
                     }.bind(this),
-                    error: function (err) {
+                    error: function (ignore) {
                         this.set('showErrorMessage', true)
                             .then(function(){
                                 setTimeout(function () {
