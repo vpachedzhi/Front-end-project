@@ -248,6 +248,7 @@ body {
 .filterOptions {
     height: 20%;
     width: 100%;
+    margin: 5px;
 }
 
 .filterOptions > .heading {
@@ -258,4 +259,29 @@ body {
 .filterOptions > div {
     height: 80%;
     overflow-y: auto;
+}
+
+
+/* Below CSS is for vertical scrolls */
+
+::-webkit-scrollbar
+{
+    width: 22px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    padding: 10px
+}
+
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(109, 139, 167, 0.4);
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(82, 127, 167, 0.4);
 }
