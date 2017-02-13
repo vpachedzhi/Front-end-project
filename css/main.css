@@ -255,7 +255,7 @@ body {
 }
 
 .filterOptions > .heading {
-    height: 20%;
+    height: 18%;
     padding-bottom: 5%;
 }
 
@@ -263,8 +263,16 @@ body {
     height: 80%;
 }
 
-.filterOptions input {
-    width: 90%;
+.yearOptions {
+    margin: 5px;
+    padding: 3px;
+    border: 4px solid rgba(173, 236, 255, 0.2);
+    border-radius: 7px;
+    width: 100%;
+}
+
+.yearOptions input {
+    width: 100%;
 }
 
 
