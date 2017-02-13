@@ -14,7 +14,7 @@
 <div style="height: 94%;">
     {{#if mainShown}}
     <div class="row fullHeight">
-        <div class="selections col-xs-6 col-sm-4 col-md-2 col-lg-2 fullHeight">
+        <div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 fullHeight">
             {{#params}}
             <div class="filterOptions">
                 <div class="heading">Selected filters</div>
@@ -27,7 +27,7 @@
             {{/params}}
             <div class="filterOptions">
                 <div class="heading">Genre</div>
-                <div>
+                <div class="selections">
                     {{#each genres.sort()}}
                     <div on-click="@this.selectGenre(this)"><a>{{this}}</a></div>
                     {{/each}}
@@ -35,7 +35,7 @@
             </div>
             <div class="filterOptions">
                 <div class="heading">Style</div>
-                <div>
+                <div class="selections">
                     {{#each styles.sort()}}
                     <div on-click="@this.selectStyle(this)"><a>{{this}}</a></div>
                     {{/each}}
@@ -43,13 +43,13 @@
             </div>
             <div class="filterOptions">
                 <div class="heading">Country</div>
-                <div>
+                <div class="selections">
                     {{#each countries.sort()}}
                     <div on-click="@this.selectCountry(this)"><a>{{this}}</a></div>
                     {{/each}}
                 </div>
             </div>
-            <div class="filterOptions">
+            <div class="yearOptions">
                 <div class="heading">Select year</div>
                 <input type="number" value='{{year}}' max="2017"/>
             </div>
