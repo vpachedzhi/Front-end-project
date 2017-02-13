@@ -107,8 +107,8 @@ requirejs([
                     url: "https://api.discogs.com/database/search",
                     data: Object.assign({}, auth, params),
                     success: function (response) {
+                        console.log(response)
                         this.set('results', response.results);
-                        console.log(this.get());
                     }.bind(this),
                     error: function (err) {
                         console.log(err)
