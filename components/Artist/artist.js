@@ -4,10 +4,13 @@ define(['ractive', 'text!components/Artist/artist.html', 'jquery'],
         return Ractive.extend({
             template: template,
 
+            data: function () {
+                return {albumsPerPage: 10};
+            },
+
             oninit: function () {
                 this.selectArtist(this.get("url"));
             },
-
 
             processResponse: function (response) {
 
@@ -16,15 +19,17 @@ define(['ractive', 'text!components/Artist/artist.html', 'jquery'],
                     data: auth,
                     success: function (resp) {
 
-                        response.releases = resp.releases.filter(function (release) {
-                            return release.type === "master";
-                        });
+                        // response.releases = resp.releases.filter(function (release) {
+                        //     return release.type === "master";
+                        // });
 
+                        response.releases = resp.releases;
+                        console.log(response);
 
-                        // TODO : make 10 a global variable for albumsPerPage so it can be changed any time
+                        var albumsPerPage = this.get("albumsPerPage");
+                        var numberOfPages = response.releases.length % albumsPerPage == 0 ?
+                            Math.floor(response.releases.length / albumsPerPage) : Math.ceil(response.releases.length / albumsPerPage);
 
-                        var numberOfPages = response.releases.length % 10 == 0 ?
-                            Math.floor(response.releases.length / 10) : Math.ceil(response.releases.length / 10);
 
                         this.set({
                             artist: response,
@@ -103,7 +108,7 @@ define(['ractive', 'text!components/Artist/artist.html', 'jquery'],
 
                 this.set("artist.releases", this.get("artist.releases").sort(compareFunctions[order]));
 
-                this.displayAlbumPage(1);   
+                this.displayAlbumPage(1);
             },
 
             displayAlbumPage: function (pageNumber) {
@@ -113,7 +118,9 @@ define(['ractive', 'text!components/Artist/artist.html', 'jquery'],
                 if (pageNumber > this.get("numberOfPages") || pageNumber < 1)
                     return;
 
-                var releases = this.get("artist.releases").slice((pageNumber * 10) - 10, pageNumber * 10);
+
+                var albumsPerPage = this.get("albumsPerPage");
+                var releases = this.get("artist.releases").slice((pageNumber * albumsPerPage) - albumsPerPage, pageNumber * albumsPerPage);
 
                 this.set({
                     currentAlbumsDisplayed: releases,

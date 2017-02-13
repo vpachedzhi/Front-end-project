@@ -23,16 +23,8 @@ define(['ractive', 'text!components/Album/album.html', 'jquery'],
             },
 
             getAlbumArt: function (response) {
-
-                // TODO: maybe return first image in array
-                // var albumArtURL = response.images.filter(function (image) {
-                //     return image.type === "primary";
-                // })[0];
-
-                var albumArtURL = response.images[0];
-
-                // TODO: return default no art image
-                return albumArtURL ? albumArtURL.resource_url : undefined;
+                console.log(response);
+                return response.images ? response.images[0].resource_url : "resources/default-release.png";
             },
 
             getTotalDuration: function (response) {
