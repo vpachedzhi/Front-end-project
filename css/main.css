@@ -248,14 +248,109 @@ body {
 .filterOptions {
     height: 20%;
     width: 100%;
+    margin: 5px;
+    padding: 3px;
+    border: 4px solid rgba(173, 236, 255, 0.2);
+    border-radius: 7px;
 }
 
 .filterOptions > .heading {
-    height: 20%;
+    height: 18%;
     padding-bottom: 5%;
 }
 
 .filterOptions > div {
     height: 80%;
+}
+
+.yearOptions {
+    margin: 5px;
+    padding: 3px;
+    border: 4px solid rgba(173, 236, 255, 0.2);
+    border-radius: 7px;
+    width: 100%;
+}
+
+.yearOptions input {
+    width: 100%;
+}
+
+
+.filterOptionsContainer {
+    text-shadow: 0 0 3px rgba(255,255,255,1) , 0 0 3px rgba(255,255,255,1) , 0 0 3px rgba(255,255,255,1) , 0 0 4px #f9c28a, 0 0 20px #f9c28a , 0 0 10px #f9c28a , 0 0 10px #f9c28a;
+}
+
+.selections {
     overflow-y: auto;
+}
+
+.selections a {
+    text-shadow: 0 0 3px rgba(255,255,255,1) , 0 0 3px rgba(255,255,255,1) , 0 0 3px rgba(255,255,255,1) , 0 0 4px #50c7ff, 0 0 20px #50c7ff , 0 0 10px #50c7ff , 0 0 10px #50c7ff;
+}
+
+.selections a:hover {
+    text-shadow: 0 0 3px rgba(255,255,255,1) , 0 0 3px rgba(255,255,255,1) , 0 0 3px rgba(255,255,255,1) , 0 0 4px #f9c28a, 0 0 20px #f9c28a , 0 0 10px #f9c28a , 0 0 10px #f9c28a;
+}
+
+/* Below CSS is for vertical scrolls */
+
+::-webkit-scrollbar
+{
+    width: 22px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    -webkit-border-radius: 10px;
+    border-radius: 4px;
+    padding: 10px
+}
+
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 7px;
+    background: rgba(109, 139, 167, 0.4);
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(82, 127, 167, 0.4);
+}
+
+/*Images*/
+
+.resultsContainer img:hover {
+    border: 2px solid #808080;
+    box-shadow: 0 0 3px rgba(255,255,255,1) , 0 0 1px rgba(255,255,255,1) , 0 0 2px rgba(255,255,255,1) , 0 0 3px #f9935a, 0 0 10px #f9935a , 0 0 5px #f9935a , 0 0 10px #f9935a ;
+    -webkit-transform: rotate(3deg);
+    -moz-transform: rotate(3deg);
+    -ms-transform: rotate(3deg);
+    -o-transform: rotate(3deg);
+    transform: rotate(3deg);
+
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+    -ms-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+}
+
+.resultsContainer img {
+    box-shadow: 0 0 3px rgba(255,255,255,1) , 0 0 3px rgba(255,255,255,1) , 0 0 3px rgba(255,255,255,1) , 0 0 4px #6ab9ff, 0 0 20px #6ab9ff , 0 0 10px #6ab9ff , 0 0 10px #6ab9ff ;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+    -ms-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+
+    -webkit-transition: 300ms ease all;
+    -moz-transition: 300ms ease all;
+    -o-transition: 300ms ease all;
+    transition: 300ms ease all;
+    margin: 7px;
 }

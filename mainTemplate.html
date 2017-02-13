@@ -14,21 +14,20 @@
 <div style="height: 94%;">
     {{#if mainShown}}
     <div class="row fullHeight">
-        <div class="selections col-xs-6 col-sm-4 col-md-2 col-lg-2 fullHeight">
+        <div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 fullHeight">
+            {{#params}}
             <div class="filterOptions">
                 <div class="heading">Selected filters</div>
                 <div class="filterOptionsContainer">
-                    {{#filtersApplied}}
-                    <div>{{this}}</div>
-                    {{/filtersApplied}}
-                    {{^filtersApplied}}
-                    <div>Nothing selected</div>
-                    {{/filtersApplied}}
+                    {{#params: k}}
+                    <div>{{params[k]}}</div>
+                    {{/params}}
                 </div>
             </div>
+            {{/params}}
             <div class="filterOptions">
                 <div class="heading">Genre</div>
-                <div>
+                <div class="selections">
                     {{#each genres}}
                     <div on-click="@this.selectGenre(this)"><a>{{this}}</a></div>
                     {{/each}}
@@ -36,7 +35,7 @@
             </div>
             <div class="filterOptions">
                 <div class="heading">Style</div>
-                <div>
+                <div class="selections">
                     {{#each styles}}
                     <div on-click="@this.selectStyle(this)"><a>{{this}}</a></div>
                     {{/each}}
@@ -44,14 +43,15 @@
             </div>
             <div class="filterOptions">
                 <div class="heading">Country</div>
-                <div>
+                <div class="selections">
                     {{#each countries}}
                     <div on-click="@this.selectCountry(this)"><a>{{this}}</a></div>
                     {{/each}}
                 </div>
             </div>
-            <div class="filterOptions">
-                here we will select year
+            <div class="yearOptions">
+                <div class="heading">Select year</div>
+                <input type="number" value='{{year}}' max="2017"/>
             </div>
         </div>
         <div class="col-xs-6 col-sm-8 col-md-10 col-lg-10 resultsContainer fullHeight">
