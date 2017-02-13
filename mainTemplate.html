@@ -15,16 +15,18 @@
     {{#if mainShown}}
     <div class="row fullHeight">
         <div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 fullHeight">
-            {{#params}}
+            {{#if Object.keys(params).length > 1}}
             <div class="filterOptions">
                 <div class="heading">Selected filters</div>
                 <div class="filterOptionsContainer">
                     {{#params: k}}
+                    {{#if k != 'page'}}
                     <div on-click="@this.remove(k)">{{params[k]}}</div>
+                    {{/if}}
                     {{/params}}
                 </div>
             </div>
-            {{/params}}
+            {{/if}}
             <div class="filterOptions">
                 <div class="heading">Genre</div>
                 <div class="selections">
@@ -55,6 +57,15 @@
             </div>
         </div>
         <div class="col-xs-6 col-sm-8 col-md-10 col-lg-10 resultsContainer fullHeight">
+            <nav class="row">
+                <div class="albumsPagination">
+                    <ul class="pagination">
+                        <li class="page-item" on-click="@this.navPage(false)"><a class="page-link">Previous</a></li>
+                        <li class="page-item"><a class="page-link" href="#">{{pagination.page}}</a></li>
+                        <li class="page-item" on-click="@this.navPage(true)"><a class="page-link">Next</a></li>
+                    </ul>
+                </div>
+            </nav>
             {{#results}}
             <div class="card" on-click="@this.selectAlbum(this.resource_url)">
                 <span><img src={{this.thumb ? this.thumb : "resources/default-release.png"}}></span>
@@ -63,7 +74,11 @@
             </div>
             {{/results}}
             {{^results}}
-            <div class="loader"></div>
+                {{#if !showErrorMessage}}
+                    <div class="loader"></div>
+                {{else}}
+                    <h2>Too many requests. Please wait...</h2>
+                {{/if}}
             {{/results}}
         </div>
     </div>
