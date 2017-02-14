@@ -17,13 +17,19 @@
         <div class="col-xs-6 col-sm-4 col-md-2  col-lg-2  fullHeight">
             {{#if Object.keys(params).length > 1}}
             <div class="filterOptions">
-                <div class="heading">Selected filters</div>
-                <div class="filterOptionsContainer">
-                    {{#params: k}}
-                    {{#if k != 'page'}}
-                    <div on-click="@this.remove(k)">{{params[k]}}</div>
-                    {{/if}}
-                    {{/params}}
+                <div class="appliedFilters">
+                    <div class="heading">Selected filters</div>
+                    <div class="filterOptionsContainer">
+                        {{#params: k}}
+                        {{#if k != 'page'}}
+                        <div>
+                            <button class='removeButton' on-click="@this.remove(k)">
+                                <a>{{params[k]}}</a><span aria-hidden="true">  &times;</span>
+                            </button>
+                        </div>
+                        {{/if}}
+                        {{/params}}
+                    </div>
                 </div>
             </div>
             {{/if}}
@@ -60,9 +66,9 @@
             {{>paginationNav}}
             {{#results}}
             <div class="card" on-click="@this.selectAlbum(this.resource_url)">
-                <span><img src={{this.thumb ? this.thumb : "resources/default-release.png"}}></span>
+                <span><img class='thumbnail'src={{this.thumb ? this.thumb : "resources/default-release.png"}}></span>
 
-                <h4 class="title"><span>{{this.title}}</span></h4>
+                <h4 class="title"><a>{{this.title}}</a></h4>
             </div>
             {{/results}}
             {{^results}}

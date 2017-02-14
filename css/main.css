@@ -14,6 +14,10 @@
     cursor: pointer;
 }
 
+.card:hover a {
+    text-shadow: 0 0 3px rgba(255, 255, 255, 1), 0 0 3px rgba(255, 255, 255, 1), 0 0 3px rgba(255, 255, 255, 1), 0 0 4px #50c7ff, 0 0 20px #50c7ff, 0 0 10px #50c7ff, 0 0 10px #50c7ff;
+}
+
 .title {
     overflow: hidden;
     font-size: 13px;
@@ -112,6 +116,7 @@ a {
 a:hover {
     cursor: pointer;
     text-decoration: none;
+    text-shadow: 0 0 3px rgba(255, 255, 255, 1), 0 0 3px rgba(255, 255, 255, 1), 0 0 3px rgba(255, 255, 255, 1), 0 0 4px #50c7ff, 0 0 20px #50c7ff, 0 0 10px #50c7ff, 0 0 10px #50c7ff;
 }
 
 a:visited {
@@ -213,7 +218,6 @@ body {
 
 .selections {
     height: 100%;
-
 }
 
 .filters {
@@ -246,11 +250,20 @@ body {
     width: 100%;
     margin: 5px;
     padding: 3px;
-    border: 4px solid rgba(173, 236, 255, 0.2);
+    border: 4px solid rgba(250, 250, 254, 0.51);
     border-radius: 7px;
 }
 
-.filterOptions > .heading {
+.heading {
+    font-weight: bolder;
+    border: 1px solid rgba(94, 94, 94, 0.1);
+    margin-bottom: 2px;
+    padding-left: 3px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.filterOptions .heading {
     height: 18%;
     padding-bottom: 5%;
 }
@@ -262,7 +275,7 @@ body {
 .yearOptions {
     margin: 5px;
     padding: 3px;
-    border: 4px solid rgba(173, 236, 255, 0.2);
+    border: 4px solid rgba(250, 250, 254, 0.51);
     border-radius: 7px;
     width: 100%;
 }
@@ -271,26 +284,29 @@ body {
     width: 100%;
 }
 
-.filterOptionsContainer {
-    text-shadow: 0 0 3px rgba(255, 255, 255, 1), 0 0 3px rgba(255, 255, 255, 1), 0 0 3px rgba(255, 255, 255, 1), 0 0 4px #f9c28a, 0 0 20px #f9c28a, 0 0 10px #f9c28a, 0 0 10px #f9c28a;
+
+.appliedFilters a:hover{
+    text-shadow: 0 0 3px rgba(255, 255, 255, 1), 0 0 3px rgba(255, 255, 255, 1), 0 0 3px rgba(255, 255, 255, 1), 0 0 4px #f91532, 0 0 20px #f9c28a, 0 0 10px #f9c28a, 0 0 10px #f9c28a;
+}
+
+.removeButton {
+    border-radius: 5px;
+    margin: 3px;
+}
+
+.removeButton:hover {
+    box-shadow: 0 0 3px rgba(255, 255, 255, 1), 0 0 3px rgba(255, 255, 255, 1), 0 0 3px rgba(255, 255, 255, 1), 0 0 4px #f90a20, 0 0 20px #f9c28a, 0 0 10px #f9c28a, 0 0 10px #f9c28a;
+    text-shadow: 0 0 3px rgba(255, 255, 255, 1), 0 0 3px rgba(255, 255, 255, 1), 0 0 3px rgba(255, 255, 255, 1), 0 0 4px #f91532, 0 0 20px #f9c28a, 0 0 10px #f9c28a, 0 0 10px #f9c28a;
 }
 
 .selections {
     overflow-y: auto;
 }
 
-.selections a {
-    text-shadow: 0 0 3px rgba(255, 255, 255, 1), 0 0 3px rgba(255, 255, 255, 1), 0 0 3px rgba(255, 255, 255, 1), 0 0 4px #50c7ff, 0 0 20px #50c7ff, 0 0 10px #50c7ff, 0 0 10px #50c7ff;
-}
-
-.selections a:hover {
-    text-shadow: 0 0 3px rgba(255, 255, 255, 1), 0 0 3px rgba(255, 255, 255, 1), 0 0 3px rgba(255, 255, 255, 1), 0 0 4px #f9c28a, 0 0 20px #f9c28a, 0 0 10px #f9c28a, 0 0 10px #f9c28a;
-}
-
 /* Below CSS is for vertical scrolls */
 
 ::-webkit-scrollbar {
-    width: 22px;
+    width: 16px;
 }
 
 ::-webkit-scrollbar-track {
@@ -302,8 +318,8 @@ body {
 
 ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
-    border-radius: 7px;
-    background: rgba(109, 139, 167, 0.4);
+    border-radius: 5px;
+    background: rgba(158, 158, 162, 0.4);
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
@@ -315,7 +331,7 @@ body {
 
 .resultsContainer img:hover {
     border: 2px solid #808080;
-    box-shadow: 0 0 3px rgba(255, 255, 255, 1), 0 0 1px rgba(255, 255, 255, 1), 0 0 2px rgba(255, 255, 255, 1), 0 0 3px #f9935a, 0 0 10px #f9935a, 0 0 5px #f9935a, 0 0 10px #f9935a;
+    box-shadow: 0 0 3px rgba(255, 255, 255, 1), 0 0 3px rgba(255, 255, 255, 1), 0 0 3px rgba(255, 255, 255, 1), 0 0 4px #6ab9ff, 0 0 20px #6ab9ff, 0 0 10px #6ab9ff, 0 0 10px #6ab9ff;
     -webkit-transform: rotate(3deg);
     -moz-transform: rotate(3deg);
     -ms-transform: rotate(3deg);
@@ -330,7 +346,6 @@ body {
 }
 
 .resultsContainer img {
-    box-shadow: 0 0 3px rgba(255, 255, 255, 1), 0 0 3px rgba(255, 255, 255, 1), 0 0 3px rgba(255, 255, 255, 1), 0 0 4px #6ab9ff, 0 0 20px #6ab9ff, 0 0 10px #6ab9ff, 0 0 10px #6ab9ff;
     -webkit-transform: rotate(0deg);
     -moz-transform: rotate(0deg);
     -ms-transform: rotate(0deg);
