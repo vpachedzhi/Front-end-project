@@ -11,10 +11,10 @@
         {{/artistURL}}
     </ul>
 </div>
-<div style="height: 94%;">
+<div class="mainContainer">
     {{#if mainShown}}
     <div class="row fullHeight">
-        <div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 fullHeight">
+        <div class="col-xs-6 col-sm-4 col-md-2  col-lg-2  fullHeight">
             {{#if Object.keys(params).length > 1}}
             <div class="filterOptions">
                 <div class="heading">Selected filters</div>
@@ -72,8 +72,6 @@
                     <h2>Too many requests. Please wait...</h2>
                 {{/if}}
             {{/results}}
-            <br>
-            {{>paginationNav}}
         </div>
     </div>
     {{elseif albumShown}}
