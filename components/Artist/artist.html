@@ -18,19 +18,14 @@
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
 
-                        <div class="{{showMoreInfo ? '': 'artist-profile-cropped'}}">{{this.artist.description}}</div>
+                        <div id="artist-description" class="{{showMoreInfo ? '': 'artist-profile-cropped'}}">{{this.artist.description}}</div>
 
-                        <button on-click="@this.toggle('showMoreInfo')" class="btn btn-primary show-more-button">
+                        <button id="description-btn" on-click="@this.toggle('showMoreInfo')" class="btn btn-primary show-more-button">
                             {{showMoreInfo ? "Show less" : "Show more"}}
                         </button>
                     </div>
                 </div>
                 {{/if}}
-
-                {{#partial band}}
-                <!--TODO read about partial-->
-                {{/partial}}
-
 
                 {{#if this.artist.members}}
                 <div class="row artist-members artist-profile">
@@ -72,10 +67,10 @@
                 {{#if artist.images}}
                 <div class="row artist-pictures artist-profile">
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <span>Pictures</span>
+                        <span>Picture</span>
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <span class="artist-picture"><img src={{artist.images[0].resource_url}}></span>
+                        <span><img id="artist-picture" src={{artist.images[0].resource_url}}></span>
                     </div>
                 </div>
                 {{/if}}
@@ -85,7 +80,7 @@
     <div class="container">
         <div class="row artist-releases">
             <h3 class="releases-title">Discography</h3>
-            <div class="row releases-topbar">
+            <div class="row releases-navbar">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 dropdown releases-sort">
                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -99,15 +94,18 @@
                         <li><a on-click="@this.sortAlbums('descTitle')">Title Descending(Z-A)</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-8 col-xs-8">
-                    {{this.currentPage * this.albumsPerPage - (this.albumsPerPage - 1)}} - {{this.currentPage * this.albumsPerPage > this.artist.releases.length ?
-                    this.artist.releases.length: this.currentPage * this.albumsPerPage}} of {{this.artist.releases.length}}
+                <div class="col-lg-6 col-md-6 col-sm-4 col-xs-4 page-displayed">
+                    Showing
+                    {{this.currentPage * this.albumsPerPage - (this.albumsPerPage - 1)}} - {{this.currentPage *
+                    this.albumsPerPage > this.artist.releases.length ?
+                    this.artist.releases.length: this.currentPage * this.albumsPerPage}} of
+                    {{this.artist.releases.length}}
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-2 col-xs-2 releases-pagination">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 releases-pagination">
                     <ul class="pagination releases-pagination">
                         <li class="page-item {{this.currentPage == 1 ? 'disabled' : ''}}">
                             <a on-click="@this.displayAlbumPage(this.currentPage - 1)"
-                              >Previous</a></li>
+                            >Previous</a></li>
                         <li class="page-item {{this.currentPage == numberOfPages ? 'disabled' : ''}}">
                             <a on-click="@this.displayAlbumPage(this.currentPage + 1)"
                                class="page-link">Next</a></li>
@@ -128,14 +126,47 @@
                     <tbody>
                     {{#each currentAlbumsDisplayed}}
                     <tr class="clickable-table-row" on-click="@this.selectAlbum(this.resource_url)">
-                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 releases-table-row">{{this.year}}</td>
+                        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 releases-table-row">{{this.year == 0 ? "" : this.year}}</td>
                         <td class="col-lg-10 col-md-9 col-sm-8 col-xs-8 releases-table-row">{{this.title}}</td>
                         <td class="col-lg-1 col-md-2 col-sm-3 col-xs-3 releases-table-row col-centered"><img
-                                src="{{this.thumb ? this.thumb : 'resources/default-release.png'}}" class="img-thumbnail album-cover"></td>
+                                src="{{this.thumb ? this.thumb : 'resources/default-release.png'}}"
+                                class="img-thumbnail album-cover"></td>
                     </tr>
                     {{/each}}
                     </tbody>
                 </table>
+            </div>
+            <div class="row releases-navbar">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 dropup releases-sort">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Sort by
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a on-click="@this.sortAlbums('ascYear')">Year Ascending(0-9)</a></li>
+                        <li><a on-click="@this.sortAlbums('descYear')">Year Descending(9-0)</a></li>
+                        <li><a on-click="@this.sortAlbums('ascTitle')">Title Ascending(A-Z)</a></li>
+                        <li><a on-click="@this.sortAlbums('descTitle')">Title Descending(Z-A)</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-4 col-xs-4 page-displayed">
+                    Showing
+                    {{this.currentPage * this.albumsPerPage - (this.albumsPerPage - 1)}} - {{this.currentPage *
+                    this.albumsPerPage > this.artist.releases.length ?
+                    this.artist.releases.length: this.currentPage * this.albumsPerPage}} of
+                    {{this.artist.releases.length}}
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 releases-pagination">
+                    <ul class="pagination releases-pagination">
+                        <li class="page-item {{this.currentPage == 1 ? 'disabled' : ''}}">
+                            <a on-click="@this.displayAlbumPage(this.currentPage - 1)"
+                            >Previous</a></li>
+                        <li class="page-item {{this.currentPage == numberOfPages ? 'disabled' : ''}}">
+                            <a on-click="@this.displayAlbumPage(this.currentPage + 1)"
+                               class="page-link">Next</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

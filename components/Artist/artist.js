@@ -10,6 +10,7 @@ define(['ractive', 'text!components/Artist/artist.html', 'jquery'],
 
             oninit: function () {
                 this.selectArtist(this.get("url"));
+
             },
 
             processResponse: function (response) {
@@ -30,12 +31,22 @@ define(['ractive', 'text!components/Artist/artist.html', 'jquery'],
                             Math.floor(response.releases.length / albumsPerPage) : Math.ceil(response.releases.length / albumsPerPage);
 
 
+                        response.releases.forEach(function (release) {
+                            if (!release.hasOwnProperty('year'))
+                                release.year = 0;
+                        });
+
                         this.set({
                             artist: response,
                             showMoreInfo: false,
                             numberOfPages: numberOfPages,
                             currentPage: 1
-                        });
+                        })
+                            .then(function () {
+                                console.log($("#artist-description").height());
+                                if ($("#artist-description").height() < 140)
+                                    $("#description-btn").hide();
+                            });
                         this.displayAlbumPage(1);
                         console.log(this.get());
                     }.bind(this),
@@ -48,8 +59,12 @@ define(['ractive', 'text!components/Artist/artist.html', 'jquery'],
             formatDescription: function (description) {
 
                 var re = /\[\w=(.*?)\]/g;
+                var re2 = /\[\w\](.*?)\[\/\w\]/g;
 
-                return description.replace(re, "$1");
+                description = description.replace(re, "$1");
+                description = description.replace(re2, "$1");
+
+                return description;
             },
 
             selectAlbum: function (resource_url) {
@@ -111,8 +126,6 @@ define(['ractive', 'text!components/Artist/artist.html', 'jquery'],
             },
 
             displayAlbumPage: function (pageNumber) {
-
-                // TODO : 10 must be global constant
 
                 if (pageNumber > this.get("numberOfPages") || pageNumber < 1)
                     return;
