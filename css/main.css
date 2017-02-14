@@ -77,11 +77,6 @@
     text-align: right;
 }
 
-/*.album-wrapper {*/
-    /*background-color: #C7C7CC;*/
-    /*font-family: "Segoe UI", Arial, sans-serif;*/
-/*}*/
-
 .album-info-data {
     text-align: right;
 }
@@ -113,11 +108,6 @@ a:hover {
 a:visited {
     color: #663366;
 }
-
-/*.artist-wrapper {*/
-    /*font-family: "Segoe UI", Arial, sans-serif;*/
-    /*background-color: #C7C7CC;*/
-/*}*/
 
 .releases-title {
     text-align: center;
@@ -185,6 +175,10 @@ body {
     }
 }
 
+.mainContainer {
+    height: 94%;
+}
+
 .dropdown-menu > li > a:hover {
     background-color: #e4e4ea;
 }
@@ -211,24 +205,6 @@ body {
     overflow-y: scroll;
     padding-bottom: 10px;
 }
-
-/*.genres {*/
-    /*height: 25%;*/
-    /*overflow-y: scroll;*/
-    /*position: relative;*/
-/*}*/
-
-/*.styles {*/
-    /*height: 25%;*/
-    /*overflow-y: scroll;*/
-    /*position: relative;*/
-/*}*/
-
-/*.countries {*/
-    /*height: 25%;*/
-    /*overflow-y: scroll;*/
-    /*position: relative;*/
-/*}*/
 
 .decades {
     height: 25%;
