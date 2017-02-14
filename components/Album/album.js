@@ -8,22 +8,18 @@ define(['ractive', 'text!components/Album/album.html', 'jquery'],
             template: template,
 
             oninit: function () {
-                //components.push(this);
                 $.ajax({
                     url: this.get("url"),
                     data: window.auth,
                     success: function (response) {
                         this.set("album", this.processResponse(response));
-                        console.log(this.get());
                     }.bind(this),
-                    error: function (err) {
-                        console.log(err)
+                    error: function (ignore) {
                     }
                 })
             },
 
             getAlbumArt: function (response) {
-                console.log(response);
                 return response.images ? response.images[0].resource_url : "resources/default-release.png";
             },
 

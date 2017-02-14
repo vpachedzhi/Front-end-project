@@ -110,14 +110,12 @@ requirejs([
                     data: Object.assign({}, auth, params),
                     success: function (response) {
                         this.set({results: response.results, pagination: response.pagination});
-                        console.log(this.get())
                     }.bind(this),
                     error: function (ignore) {
                         this.set('showErrorMessage', true)
                             .then(function(){
                                 setTimeout(function () {
                                     this.search({});
-                                    // Retry in 50s
                                 }.bind(this), 50000);
                             }.bind(this));
                     }.bind(this)
@@ -207,13 +205,3 @@ requirejs([
             }
         });
     });
-
-
-// TODO : Use strict what is embedded style
-// NO embedded
-// Fix album table to bootstrap
-// add more css3 props
-// artist profile info parse maybe with regex
-// handle VARIOUS artist
-// artist already selected, when selecting
-// must also process normal releases

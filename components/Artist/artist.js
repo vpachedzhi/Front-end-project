@@ -20,10 +20,6 @@ define(['ractive', 'text!components/Artist/artist.html', 'jquery'],
                     data: auth,
                     success: function (resp) {
 
-                        // response.releases = resp.releases.filter(function (release) {
-                        //     return release.type === "master";
-                        // });
-
                         response.releases = resp.releases;
 
                         var albumsPerPage = this.get("albumsPerPage");
@@ -43,15 +39,12 @@ define(['ractive', 'text!components/Artist/artist.html', 'jquery'],
                             currentPage: 1
                         })
                             .then(function () {
-                                console.log($("#artist-description").height());
                                 if ($("#artist-description").height() < 140)
                                     $("#description-btn").hide();
                             });
                         this.displayAlbumPage(1);
-                        console.log(this.get());
                     }.bind(this),
-                    error: function (err) {
-                        console.log(err)
+                    error: function (ignore) {
                     }
                 });
             },
@@ -80,8 +73,7 @@ define(['ractive', 'text!components/Artist/artist.html', 'jquery'],
                         response.description = this.formatDescription(response.profile);
                         this.processResponse(response);
                     }.bind(this),
-                    error: function (err) {
-                        console.log(err)
+                    error: function (ignore) {
                     }
                 })
             },
@@ -138,8 +130,6 @@ define(['ractive', 'text!components/Artist/artist.html', 'jquery'],
                     currentAlbumsDisplayed: releases,
                     currentPage: pageNumber
                 });
-
-                console.log(this.get());
             }
         });
     });
